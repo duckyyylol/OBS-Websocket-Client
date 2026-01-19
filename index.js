@@ -1,9 +1,13 @@
 const { OBSWebSocket } = require("obs-websocket-js");
 const express = require("express");
+const { configDotenv } = require("dotenv");
+const {join} = require("path")
+
+configDotenv({path: join(__dirname, ".env"), quiet: true})
 
 async function connect() {
     try {
-        let con = await obs.connect("ws://127.0.0.1:4455", "t7BSuzktL2FmuiGz");
+        let con = await obs.connect(`ws://${process.env.WS_HOSTNAME}:${process.env.WS_PORT}`, process.env.WS_PASSWORD);
         if(con !== undefined) connected = true;
         return con != undefined ? true : false;
     } catch(e) {
@@ -98,6 +102,6 @@ webserver.get("/set-transition/:transition", async (req, res) => {
     })
 })
 
-webserver.listen(8181, (e) => {
+webserver.listen(process.env.HTTP_PORT, (e) => {
     console.log(e ? "webserver failed to connect" : "webserver listening on port 8181")
 })
