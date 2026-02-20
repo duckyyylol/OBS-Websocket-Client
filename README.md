@@ -35,9 +35,9 @@ Copy `.env.example` as `.env` and edit its values to configure the client
 > #### HTTP Endpoint `/timer/:minutes`
 > ##### Packet JSON (example, 60 minutes)
 > ```jsonc
-{
-    "id": 0,
-    "command": "duckTimer",
-    "data": 60 // Minutes Parameter from HTTP endpoint
-}
-```
+> {
+>     "id": 0,
+>     "command": "duckTimer",
+>     "data": 60 // Minutes Parameter from HTTP endpoint
+> }
+> ```
