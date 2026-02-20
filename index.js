@@ -21,30 +21,37 @@ function createPacket(command, data) {
 	return JSON.stringify({ command, data, id: 0 });
 }
 
+let towerSocket = null;
 
-const towerSocket = new WebSocket(process.env.TOWERS_WS_URI)
-
-towerSocket.onmessage = (ev) => {
-    let packet = JSON.parse(ev.data);
-
-    switch(packet.command) {
-        case "hello": {
-            console.log(`Towers Socket Connected`)
-            towerSocket.send(createPacket("hello", {intents: ['ROSTER']}))
-            break;
+if(process.env.TOWERS_WS_URI && process.env.TOWERS_WS_URI !== "" || !process.env.TOWERS_WS_URI.startsWith("ws")) {
+    console.log("Enabling Towers Socket")
+    towerSocket = new WebSocket(process.env.TOWERS_WS_URI)
+    
+    towerSocket.onmessage = (ev) => {
+        let packet = JSON.parse(ev.data);
+    
+        switch(packet.command) {
+            case "hello": {
+                console.log(`Towers Socket Connected`)
+                towerSocket.send(createPacket("hello", {intents: ['ROSTER']}))
+                break;
+            }
+            case "timer": {
+                console.log("TIMER", packet)
+                break;
+            }
+    
+            case "nope": {
+                console.log("Towers Socket denied permission", packet)
+                break;
+            }
         }
-        case "timer": {
-            console.log("TIMER", packet)
-            break;
-        }
-
-        case "nope": {
-            console.log("Towers Socket denied permission", packet)
-            break;
-        }
+    
     }
-
+} else {
+    console.log("Skipping Towers Socket - Disabled in .env")
 }
+
 
 const obs = new OBSWebSocket();
 const webserver = express();
