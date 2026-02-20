@@ -18,15 +18,15 @@ Copy `.env.example` as `.env` and edit its values to configure the client
 
 | Endpoint |Method|Params| Description |
 |----------|----------|----------|-------------|
-| `/set-transition/:transitionName`|GET|`transitionName` - The case-sensitive name of the incoming transition in OBS| Sets the transition in OBS. Transition must be triggered manually.|
-|`/set-scene/:sceneName/:destination`|GET|`sceneName` - The case-sensitive name of the incoming scene in OBS<br><br>`destination` - Where to set the scene in OBS ("Preview", "Program") [Case-Sensitive]|Set the current scene in OBS on either Preview or Program
+| /set-transition/:transitionName|GET|`transitionName` - The case-sensitive name of the incoming transition in OBS| Sets the transition in OBS. Transition must be triggered manually.|
+|/set-scene/:sceneName/:destination|GET|`sceneName` - The case-sensitive name of the incoming scene in OBS<br><br>`destination` - Where to set the scene in OBS ("Preview", "Program") [Case-Sensitive]|Set the current scene in OBS on either Preview or Program
 
 ## Endpoints (Extra)
 ---
 
 | Endpoint |Method|Params| Description |
 |----------|----------|----------|-------------|
-| `/timer/:minutes`|GET|`minutes` - The number of minutes to put on the timer| Sets the timer to **x** minute(s).|
+| /timer/:minutes|GET|`minutes` - The number of minutes to put on the timer| Sets the timer to **x** minute(s).|
 
 ## Custom WebSocket Server
 ---
