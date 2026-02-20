@@ -177,7 +177,7 @@ webserver.get("/set-scene/:scene/:type", async (req, res) => {
         if(!fail) res.sendStatus(200)
         if(!fail) {
             console.log(`Setting scene ${scenes[req.params.type]} -> ${req.params.scene} on ${req.params.type.toUpperCase()}`)
-            scenes[req.params.type] = req.params.scene;
+            // scenes[req.params.type] = req.params.scene;
 
         }
     })
