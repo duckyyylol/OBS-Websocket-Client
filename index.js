@@ -23,7 +23,7 @@ function createPacket(command, data) {
 
 let towerSocket = null;
 
-if(process.env.TOWERS_WS_URI && process.env.TOWERS_WS_URI !== "" || !process.env.TOWERS_WS_URI.startsWith("ws")) {
+if(process.env?.TOWERS_WS_URI && (process.env?.TOWERS_WS_URI || "") !== "" && (process.env?.TOWERS_WS_URI || "").startsWith("ws")) {
     console.log("Enabling Towers Socket")
     towerSocket = new WebSocket(process.env.TOWERS_WS_URI)
     
@@ -184,6 +184,11 @@ webserver.get("/set-scene/:scene/:type", async (req, res) => {
 })
 
 webserver.get("/timer/:minutes", async (req, res) => {
+    if(towerSocket === null) {
+        res.statusCode = 401;
+        res.send({error: "The custom socket is not enabled in .env"})
+        return;
+    }
     try {
         towerSocket.send(createPacket("duckTimer", (req.params.minutes)))
         res.sendStatus(200);
