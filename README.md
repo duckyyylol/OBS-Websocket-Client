@@ -1,4 +1,4 @@
-Params## Configuring
+## Configuring
 ---
 Main Config File: `.env`
 
